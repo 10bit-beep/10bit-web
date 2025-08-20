@@ -148,24 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   const searchBtn = document.getElementById('searchBtn');
 
-  if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
-      loadList(1).catch(err => {
-        console.error(err);
-        alert("조회 중 오류가 발생했습니다.");
-      });
-    });
-  }
-
-  if (classSelect) {
-    classSelect.addEventListener('change', () => {
-      loadList(1).catch(err => {
-        console.error(err);
-        alert("조회 중 오류가 발생했습니다.");
-      });
-    });
-  }
-
   function setupPagination(current, total) {
     const container = document.querySelector('.nextPage-container');
     if (!container) return;
