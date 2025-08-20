@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const API_BASE = 'http://localhost:3000';
   const ENDPOINTS = {
     save: '/api/attendance',
-    list: '/api/attendance/list' 
+    list: '/api/attendance/list'
   };
+  const CURRENT_USER = (localStorage.getItem('currentUser') || 'CNS').trim();
 
   async function postJSON(url, payload) {
     const res = await fetch(`${API_BASE}${url}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ user: CURRENT_USER, ...payload }),
     });
     if (!res.ok) {
       const text = await res.text().catch(() => '');
@@ -19,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function getJSON(urlWithQuery) {
-    const res = await fetch(`${API_BASE}${urlWithQuery}`);
+    const res = await fetch(`${API_BASE}${urlWithQuery}`, {
+    });
     if (!res.ok) {
       const text = await res.text().catch(() => '');
       throw new Error(`GET ${urlWithQuery} 실패: ${res.status} ${text}`);
@@ -30,26 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const dropdownBtn = document.getElementById('dropdownBtn');
   const dropdownMenu = document.getElementById('dropdownMenu');
 
-  dropdownBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isVisible = dropdownMenu.style.display === 'block';
-    dropdownMenu.style.display = isVisible ? 'none' : 'block';
-    dropdownBtn.setAttribute('aria-expanded', !isVisible);
-  });
-
-  dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const link = item.getAttribute('data-link');
-      if (link) {
-        window.location.href = link;
-      }
+  if (dropdownBtn && dropdownMenu) {
+    dropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = dropdownMenu.style.display === 'block';
+      dropdownMenu.style.display = isVisible ? 'none' : 'block';
+      dropdownBtn.setAttribute('aria-expanded', String(!isVisible));
     });
-  });
 
-  document.addEventListener('click', () => {
-    dropdownMenu.style.display = 'none';
-    dropdownBtn.setAttribute('aria-expanded', 'false');
-  });
+    dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const link = item.getAttribute('data-link');
+        if (link) window.location.href = link;
+      });
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+      dropdownBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   const tbodyTds = document.querySelectorAll(".tb tbody td");
 
@@ -114,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const studentId = (row.querySelector("td:nth-child(1)")?.textContent || "").trim();
         const name = (row.querySelector("td:nth-child(2)")?.textContent || "").trim();
         const lab = (row.querySelector("td:nth-child(3)")?.textContent || "").trim();
-        const status = select.value; 
+        const status = select.value;
 
         if (!studentId || !lab || !status) {
           alert("학번/실/출석 값이 올바르지 않습니다.");
@@ -147,6 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const classSelect = document.getElementById('classSelect');
   const searchInput = document.getElementById('searchInput');
   const searchBtn = document.getElementById('searchBtn');
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      loadList(1).catch(console.error);
+    });
+  }
 
   function setupPagination(current, total) {
     const container = document.querySelector('.nextPage-container');
@@ -189,7 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tbody.innerHTML = '';
 
-    items.forEach(item => {
+    const filtered = items.filter(it => (it.user ? String(it.user).trim() : CURRENT_USER) === CURRENT_USER);
+
+    (filtered.length ? filtered : items).forEach(item => {
       const tr = document.createElement('tr');
 
       const tdId = document.createElement('td');
@@ -245,9 +256,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const cls = classSelect?.value || '';
     const q = searchInput?.value || '';
     const params = new URLSearchParams();
+
     if (cls) params.set('class', cls);
     if (q) params.set('q', q);
     params.set('page', String(page));
+
+    params.set('user', CURRENT_USER);
 
     const data = await getJSON(`${ENDPOINTS.list}?${params.toString()}`);
 
