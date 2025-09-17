@@ -12,79 +12,84 @@
         <div class="logo">
           <img src="../img/logo.png" alt="로고" />
         </div>
-      </div>
-      <div class="menu">
-        <a href="../main/main.html" class="menu1">홈</a>
-        <a href="../inquiry/inquiry.html" class="menu1">출석 조회하기</a>
-        <span class="separator"></span>
-        <a href="../login/login.html" class="menu1">로그인</a>
-      </div>
-      <div class="box" id="loginBox">
-        <p class="signup">회원가입</p>
-        <form onsubmit="handleSignup(event)">
-          <div class="input-group">
-            <label for="userid">아이디</label>
-            <input
-              type="text"
-              id="userid"
-              name="userid"
-              placeholder="아이디를 입력하세요"
-            />
+        <div class="menu">
+          <a href="../main/main.html" class="menu1">홈</a>
+          <a href="../inquiry/inquiry.html" class="menu1">출석 조회하기</a>
+          <span class="separator"></span>
+          <a href="../login/login.html" class="menu1">로그인</a>
+        </div>
+        <div class="box" id="loginBox">
+          <p class="signup">회원가입</p>
+          <form>
+            <div class="input-group">
+              <label for="email">이메일</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="이메일을 입력하세요"
+              />
+            </div>
+            <div class="input-group">
+              <label for="userid">아이디</label>
+              <input
+                type="text"
+                id="userid"
+                name="userid"
+                placeholder="아이디를 입력하세요"
+              />
+            </div>
+            <div class="input-group">
+              <label for="password">비밀번호</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="비밀번호를 입력하세요"
+              />
+            </div>
+            <div class="input-group">
+              <label for="student">학번</label>
+              <input
+                type="number"
+                id="student"
+                name="student"
+                placeholder="학번을 입력하세요"
+                min="1000"
+                max="9999"
+              />
+            </div>
+            <div class="input-group">
+              <label for="room">실이름</label>
+              <select id="room" name="room" required>
+                <option value="" disabled selected>
+                  랩실/프로젝트실을 선택하세요
+                </option>
+                <option value="LAB 1">MODI - PROJECT 5</option>
+                <option value="LAB 2">삼디 - PROJECT 6</option>
+                <option value="LAB 3">ALT - LAB 21_22</option>
+                <option value="LAB 3">B1ND - LAB 19_20</option>
+                <option value="LAB 3">CNS - LAB 17_18</option>
+                <option value="LAB 3">LOUTER - PROJECT 4</option>
+                <option value="LAB 3">Chatty - LAB 10_11</option>
+                <option value="LAB 3">DUCAMI - LAB 6_7</option>
+              </select>
+            </div>
+            <button type="submit" class="signup-box">회원가입</button>
+            <div class="logins">
+              <a>이미 계정이 있으신가요?</a>
+              <a href="../login/login.html">로그인</a>
+            </div>
+          </form>
+        </div>
+        <footer>
+          <div class="footer-text">
+            <p>연락처: 010-0000-0000</p>
+            <p>Copyright 2025. Team 8bit All rights reserved.</p>
           </div>
-          <div class="input-group">
-            <label for="password">비밀번호</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="비밀번호를 입력하세요"
-            />
-          </div>
-          <div class="input-group">
-            <label for="student">학번</label>
-            <input
-              type="number"
-              id="student"
-              name="student"
-              placeholder="학번을 입력하세요"
-              min="1000"
-              max="9999"
-            />
-          </div>
-          <div class="input-group">
-            <label for="name">이름</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="이름을 입력하세요"
-            />
-          </div>
-          <div class="input-group">
-            <label for="email">이메일</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="이메일을 입력하세요"
-            />
-          </div>
-          <button type="submit" class="signup-box">회원가입</button>
-
-          <div class="logins">
-            <a>이미 계정이 있으신가요?</a>
-            <a href="../login/login.html">로그인</a>
-          </div>
-        </form>
+          <img class="logo2" src="../img/logo2.png" alt="하단로고" />
+        </footer>
       </div>
     </div>
-    <footer>
-      <div class="footer-text">
-        <p>연락처: 010-0000-0000</p>
-        <p>Copyright 2025. Team 8bit All rights reserved.</p>
-      </div>
-      <img class="logo2" src="../img/logo2.png" alt="하단로고" />
-    </footer>
-    <script src="../signup/signup.js"></script>
   </body>
 </html>

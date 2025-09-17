@@ -138,6 +138,8 @@ form {
 }
 
 /* 로그인 입력폼 스타일 */
+.input-group.select-wrap { position: relative; }
+
 .input-group {
   margin: 10px 0;
   display: flex;
@@ -157,6 +159,45 @@ form {
   font-size: 16px;
   width: 370px;
 }
+.input-group select {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  line-height: 1.2;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.input-group.select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 12px; height: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  background: no-repeat center/12px;
+  background-image: url('data:image/svg+xml;utf8,\<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6">\<path d="M1 1l4 4 4-4" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.input-group select{
+  height: 50px;
+  padding: 6px 15px;
+  border-radius: 13px;
+  border: 1.5px solid #cccccc8d;
+  font-size: 16px;
+  width: 403px;
+  color: #919191;
+}
+
+.input-group select:valid{ /* 기본값이 아닌 속성을 클릭했을 때 */
+  color: black;
+}
+
 .logins {
   margin-top: 20px;
   text-align: center;
@@ -167,7 +208,7 @@ form {
   color: #b9b9b9;
   text-decoration: none;
   margin: 0 8px;
-  font-weight: normal !important; /* 볼드 강제 제거 */
+  font-weight: normal !important;
   cursor: pointer;
 }
 
