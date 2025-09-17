@@ -194,6 +194,10 @@ form {
   color: #919191;
 }
 
+.input-group select:valid{ /* 기본값이 아닌 속성을 클릭했을 때 */
+  color: black;
+}
+
 .logins {
   margin-top: 20px;
   text-align: center;
