@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('학생번호/아이디/비밀번호/이메일/실이름(동아리)를 모두 입력해주세요.');
       return;
     }
+    return
 
     try {
       const res = await fetch('http://localhost:8080/auth/signup', {
