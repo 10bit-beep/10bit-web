@@ -171,6 +171,7 @@ form {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
 .input-group.select-wrap::after {
   content: "";
   position: absolute;
@@ -183,14 +184,6 @@ form {
   background-image: url('data:image/svg+xml;utf8,\<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6">\<path d="M1 1l4 4 4-4" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
 }
 
-.input-group select:disabled {
-  height: 35px;
-  padding: 6px 15px;
-  border-radius: 13px;
-  border: 1.5px solid #cccccc8d;
-  font-size: 16px;
-  width: 370px;
-}
 .input-group select{
   height: 50px;
   padding: 6px 15px;
@@ -198,6 +191,7 @@ form {
   border: 1.5px solid #cccccc8d;
   font-size: 16px;
   width: 403px;
+  color: #919191;
 }
 
 .logins {
