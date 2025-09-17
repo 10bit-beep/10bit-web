@@ -182,15 +182,14 @@ form {
   background: no-repeat center/12px;
   background-image: url('data:image/svg+xml;utf8,\<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6">\<path d="M1 1l4 4 4-4" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
 }
-.input-group select:focus {
-  outline: none;
-  border-color: #487cdc;
-  box-shadow: 0 0 0 3px rgba(72,124,220,.15);
-}
+
 .input-group select:disabled {
-  background-color: #f7f7f7;
-  color: #aaa;
-  cursor: not-allowed;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 13px;
+  border: 1.5px solid #cccccc8d;
+  font-size: 16px;
+  width: 370px;
 }
 .logins {
   margin-top: 20px;
@@ -202,7 +201,7 @@ form {
   color: #b9b9b9;
   text-decoration: none;
   margin: 0 8px;
-  font-weight: normal !important; /* 볼드 강제 제거 */
+  font-weight: normal !important;
   cursor: pointer;
 }
 
