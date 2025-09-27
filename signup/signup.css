@@ -138,7 +138,9 @@ form {
 }
 
 /* 로그인 입력폼 스타일 */
-.input-group.select-wrap { position: relative; }
+.input-group.select-wrap {
+  position: relative;
+}
 
 .input-group {
   margin: 10px 0;
@@ -177,14 +179,15 @@ form {
   position: absolute;
   top: 50%;
   right: 12px;
-  width: 12px; height: 12px;
+  width: 12px;
+  height: 12px;
   transform: translateY(-50%);
   pointer-events: none;
   background: no-repeat center/12px;
   background-image: url('data:image/svg+xml;utf8,\<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6">\<path d="M1 1l4 4 4-4" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
 }
 
-.input-group select{
+.input-group select {
   height: 50px;
   padding: 6px 15px;
   border-radius: 13px;
@@ -194,7 +197,8 @@ form {
   color: #919191;
 }
 
-.input-group select:valid{ /* 기본값이 아닌 속성을 클릭했을 때 */
+.input-group select:valid {
+  /* 기본값이 아닌 속성을 클릭했을 때 */
   color: black;
 }
 
@@ -231,7 +235,7 @@ form {
 .menu1 {
   text-align: center;
   padding: 0 15px; /* 기존 패딩 유지 */
-  margin: 0 100px;  /* 좌우 간격을 더 크게 */
+  margin: 0 100px; /* 좌우 간격을 더 크게 */
   display: block;
   transition: background-color 0.3s ease;
   font-size: 18px;

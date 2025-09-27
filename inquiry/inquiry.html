@@ -6,7 +6,7 @@
     <title>삑</title>
     <link rel="stylesheet" href="../inquiry/inquiry.css" />
   </head>
-  <body>
+  <body onclick="handleDocumentClick(event)">
     <div class="top">
       <div class="logo">
         <img src="../img/logo.png" alt="로고" />
@@ -17,19 +17,37 @@
       <a href="../inquiry/inquiry.html" class="menu1">출석 조회하기</a>
       <span class="separator"></span>
       <p class="menu1">OOO선생님</p>
-      <button id="teacher" aria-haspopup="true" aria-expanded="false">▼</button>
+      <button
+        id="teacher"
+        aria-haspopup="true"
+        aria-expanded="false"
+        onclick="toggleTeacherDropdown(event)"
+      >
+        ▼
+      </button>
     </div>
     <div class="box" id="checkBox">
       <p class="check">반별 조회</p>
-      <button id="dropdownBtn" aria-haspopup="true" aria-expanded="false">
+      <button
+        id="dropdownBtn"
+        aria-haspopup="true"
+        aria-expanded="false"
+        onclick="toggleDropdown(event)"
+      >
         ▼
       </button>
       <div id="dropdownMenu" class="dropdown-menu" aria-label="출석 조회 메뉴">
-        <div class="dropdown-item" data-link="../room/room.html">실별 조회</div>
+        <div
+          class="dropdown-item"
+          data-link="../room/room.html"
+          onclick="goToLink(this)"
+        >
+          실별 조회
+        </div>
       </div>
       <hr class="long-line" />
       <div class="search-container">
-        <select id="classSelect" aria-label="선택">
+        <select id="classSelect" aria-label="선택" onchange="onClassChange()">
           <option value="" disabled selected>학반</option>
           <option value="x학년 x반">1학년 1반</option>
           <option value="x학년 x반">1학년 2반</option>
@@ -81,11 +99,11 @@
         </tbody>
       </table>
       <div class="nextPage-container">
-        <a href="#" class="page-link">◀</a>
-        <a href="#" class="page-link">1</a>
-        <a href="#" class="page-link">2</a>
-        <a href="#" class="page-link">3</a>
-        <a href="#" class="page-link">▶</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">◀</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">1</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">2</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">3</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">▶</a>
       </div>
     </div>
     <footer>

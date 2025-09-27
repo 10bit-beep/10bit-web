@@ -1,40 +1,37 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const loginForm = document.querySelector('form');
-  if (!loginForm) return;
+function initLoginPage() {
+  const loginForm = document.querySelector("form");
+  const logoutButton = document.getElementById("logoutButton");
 
-  const container = loginForm.parentElement;
-  if (!container) return;
+  if (!loginForm || !logoutButton) return;
 
-  const logoutButton = document.createElement('button');
-  logoutButton.textContent = '로그아웃';
-  logoutButton.style.display = 'none';
-  container.appendChild(logoutButton);
-
-  const hasToken = !!localStorage.getItem('token');
+  // 로그인 상태 확인
+  const hasToken = !!localStorage.getItem("token");
   hasToken ? showLogout() : showLogin();
 
-  loginForm.addEventListener('submit', async function (e) {
+  // 로그인
+  window.handleLogin = async function (e) {
     e.preventDefault();
 
-    const publicId = document.getElementById('userid').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const formData = new FormData(e.currentTarget);
+    const publicId = formData.get("userid")?.trim();
+    const password = formData.get("password")?.trim();
+
     if (!publicId || !password) {
-      alert('아이디와 비밀번호를 모두 입력해주세요.');
-      return;
+      alert("아이디와 비밀번호를 모두 입력해주세요.");
+      return false;
     }
 
-    const url = 'http://localhost:8080/auth/login';
-
+    const url = "http://localhost:8080/auth/login";
     const submitBtn = loginForm.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
 
     try {
       const res = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'userAgent': 'Web-' + navigator.userAgent
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          userAgent: "Web-" + navigator.userAgent,
         },
         body: JSON.stringify({ publicId, password }),
       });
@@ -47,33 +44,38 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = await res.json();
 
       if (data?.success && data?.token) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         alert(`환영합니다, ${publicId}님`);
         showLogout();
-
       } else {
-        alert('로그인 실패: ' + (data?.message || '토큰이 없습니다.'));
+        alert("로그인 실패: " + (data?.message || "토큰이 없습니다."));
       }
     } catch (err) {
-      console.error('로그인 오류:', err);
-      alert('서버에 연결할 수 없습니다. 설정을 확인하세요.');
+      console.error("로그인 오류:", err);
+      alert("서버에 연결할 수 없습니다. 설정을 확인하세요.");
     } finally {
       if (submitBtn) submitBtn.disabled = false;
     }
-  });
 
-  logoutButton.addEventListener('click', () => {
-    localStorage.removeItem('token');
-    alert('로그아웃 되었습니다.');
+    return false; // form 제출 막기
+  };
+
+  // 로그아웃
+  window.handleLogout = function () {
+    localStorage.removeItem("token");
+    alert("로그아웃 되었습니다.");
     showLogin();
-  });
+  };
 
   function showLogout() {
-    loginForm.style.display = 'none';
-    logoutButton.style.display = 'inline-block';
+    loginForm.style.display = "none";
+    logoutButton.style.display = "inline-block";
   }
   function showLogin() {
-    loginForm.style.display = 'block';
-    logoutButton.style.display = 'none';
+    loginForm.style.display = "block";
+    logoutButton.style.display = "none";
   }
-});
+}
+
+// 초기 실행
+initLoginPage();

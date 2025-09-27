@@ -17,22 +17,43 @@
       <a href="../inquiry/inquiry.html" class="menu1">출석 조회하기</a>
       <span class="separator"></span>
       <p class="menu1">OOO선생님</p>
-      <button id="teacher" aria-haspopup="true" aria-expanded="false">▼</button>
+      <button
+        id="teacher"
+        aria-haspopup="true"
+        aria-expanded="false"
+        onclick="toggleTeacherMenu(event)"
+      >
+        ▼
+      </button>
     </div>
 
     <div class="box" id="checkBox">
       <p class="check">실별 조회</p>
-      <button id="dropdownBtn" aria-haspopup="true" aria-expanded="false">
+      <button
+        id="dropdownBtn"
+        aria-haspopup="true"
+        aria-expanded="false"
+        onclick="toggleDropdown(event)"
+      >
         ▼
       </button>
       <div id="dropdownMenu" class="dropdown-menu" aria-label="출석 조회 메뉴">
-        <div class="dropdown-item" data-link="../inquiry/inquiry.html">
+        <div
+          class="dropdown-item"
+          data-link="../inquiry/inquiry.html"
+          onclick="goToLink(event, this)"
+        >
           반별 조회
         </div>
       </div>
       <hr class="long-line" />
-      <div class="search-container">
-        <select id="classSelect" aria-label="실 선택">
+      <form class="search-container" onsubmit="onSearch(event)">
+        <select
+          id="classSelect"
+          name="class"
+          aria-label="실 선택"
+          onchange="onClassChange(event)"
+        >
           <option value="" disabled selected>동아리</option>
           <option value="모디">모디</option>
           <option value="CNS">CNS</option>
@@ -43,9 +64,14 @@
           <option value="두카미">두카미</option>
           <option value="Chatty">Chatty</option>
         </select>
-        <input type="text" id="searchInput" placeholder="검색어를 입력하세요" />
-        <button id="searchBtn">검색</button>
-      </div>
+        <input
+          type="text"
+          id="searchInput"
+          name="name"
+          placeholder="검색어를 입력하세요"
+        />
+        <button type="submit" id="searchBtn">검색</button>
+      </form>
       <table class="tb">
         <thead>
           <tr>
@@ -59,31 +85,35 @@
           <tr>
             <td>0000</td>
             <td></td>
-            <td>LAB 17,18</td> <td></td>
+            <td>LAB 17,18</td>
+            <td></td>
           </tr>
           <tr>
             <td>0000</td>
             <td></td>
-            <td>LAB 17,18</td> <td></td>
+            <td>LAB 17,18</td>
+            <td></td>
           </tr>
           <tr>
             <td>0000</td>
             <td></td>
-            <td>LAB 17,18</td> <td></td>
+            <td>LAB 17,18</td>
+            <td></td>
           </tr>
           <tr>
             <td>0000</td>
             <td></td>
-            <td>LAB 17,18</td> <td></td>
+            <td>LAB 17,18</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
       <div class="nextPage-container">
-        <a href="#" class="page-link">◀</a>
-        <a href="#" class="page-link">1</a>
-        <a href="#" class="page-link">2</a>
-        <a href="#" class="page-link">3</a>
-        <a href="#" class="page-link">▶</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">◀</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">1</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">2</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">3</a>
+        <a href="#" class="page-link" onclick="changePage(event, this)">▶</a>
       </div>
     </div>
 
@@ -92,8 +122,8 @@
         <p>연락처: 010-0000-0000</p>
         <p>Copyright 2025. Team 8bit All rights reserved.</p>
       </div>
-
       <img class="logo2" src="../img/logo2.png" alt="하단로고" />
     </footer>
-    <script src="../room/room.js"></script> </body>
+    <script src="../room/room.js"></script>
+  </body>
 </html>
