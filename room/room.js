@@ -84,7 +84,7 @@ function changePage(e, link) {
 }
 
 function onClassChange(e) {
-  const selectedValue = e.target.options[e.target.selectedIndex].text;
+  const selectedValue = e.target.value;
   fetchAndRenderTable(selectedValue);
 }
 
@@ -95,7 +95,22 @@ function onSearch(e) {
   console.log("검색 name:", formData.get("name"));
 }
 
-const tableBody = document.querySelector(".tb tbody");
+let tableBody = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  tableBody = document.querySelector(".tb tbody");
+
+  const classSelect = document.getElementById("classSelect");
+  if (classSelect) {
+    const initialValue =
+      classSelect.value ||
+      classSelect.options[classSelect.selectedIndex]?.value ||
+      classSelect.options[classSelect.selectedIndex]?.text || "";
+    fetchAndRenderTable(initialValue);
+  } else {
+    strengthenSSRTable();
+  }
+});
 
 function fetchAndRenderTable(userClass) {
   const token = localStorage.getItem("token");
@@ -112,7 +127,12 @@ function fetchAndRenderTable(userClass) {
       if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
     })
-    .then((data) => updateTable(data))
+    .then((data) => {
+      const students = Array.isArray(data)
+        ? data
+        : (data && (data.students || data.data)) || [];
+      updateTable(students);
+    })
     .catch((error) => {
       console.error("Error:", error);
       strengthenSSRTable();
@@ -120,7 +140,22 @@ function fetchAndRenderTable(userClass) {
 }
 
 function updateTable(students) {
+  if (!tableBody) {
+    tableBody = document.querySelector(".tb tbody");
+    if (!tableBody) return;
+  }
+
   tableBody.innerHTML = "";
+
+  if (!Array.isArray(students)) {
+    console.error("Invalid data format: Expected an array.");
+    return;
+  }
+
+  if (students.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="4" style="padding:8px;">데이터가 없습니다.</td></tr>`;
+    return;
+  }
 
   if (!Array.isArray(students)) {
     console.error("Invalid data format: Expected an array.");
