@@ -89,11 +89,23 @@ function changePage(e, link) {
 
 function onClassChange() {
   const classSelect = document.getElementById("classSelect");
-  const selectedValue = classSelect.options[classSelect.selectedIndex].text;
+  const selectedValue = classSelect.value;
   fetchAndRenderTable(selectedValue);
 }
 
-const tableBody = document.querySelector(".tb tbody");
+let tableBody = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  tableBody = document.querySelector(".tb tbody");
+
+  const classSelect = document.getElementById("classSelect");
+  if (classSelect) {
+    const initialClass = classSelect.value;
+    fetchAndRenderTable(initialClass);
+  } else {
+    strengthenSSRTable();
+  }
+});
 
 function fetchAndRenderTable(userClass) {
   const token = localStorage.getItem("token");
@@ -110,22 +122,24 @@ function fetchAndRenderTable(userClass) {
       if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
     })
-    .then((data) => updateTable(data))
+    .then((data) => {
+      const students = Array.isArray(data)
+        ? data
+        : (data && (data.students || data.data)) || [];
+      updateTable(students);
+    })
+
     .catch((error) => {
       console.error("Error:", error);
       strengthenSSRTable();
     });
 }
 
-if (document.getElementById("classSelect")) {
-  const classSelect = document.getElementById("classSelect");
-  const initialClass = classSelect.options[classSelect.selectedIndex].text;
-  fetchAndRenderTable(initialClass);
-} else {
-  strengthenSSRTable();
-}
-
 function updateTable(students) {
+  if (!tableBody) {
+    tableBody = document.querySelector(".tb tbody");
+    if (!tableBody) return;
+  }
   tableBody.innerHTML = "";
 
   if (!Array.isArray(students)) {
